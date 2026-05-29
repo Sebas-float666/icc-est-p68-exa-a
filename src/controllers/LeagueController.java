@@ -15,21 +15,20 @@ public class LeagueController {
      */
     public League[] sortSelectionAsc(League[] leagues) {
         // TODO: Implementar (solo si su fila es A)
-        throw new UnsupportedOperationException("Metodo sortSelectionAsc no implementado");
-    }
 
-    /**
-     * FILA B - Implementar este metodo con Insertion Sort descendente.
-     * Ordena el arreglo de ligas de mayor a menor segun getTotalActiveGoals().
-     *
-     * Nombre exacto requerido: sortInsertionDesc
-     *
-     * @param leagues Arreglo de ligas a ordenar
-     * @return Arreglo ordenado
-     */
-    public League[] sortInsertionDesc(League[] leagues) {
-        // TODO: Implementar (solo si su fila es B)
-        throw new UnsupportedOperationException("Metodo sortInsertionDesc no implementado");
+        for (int i = 0; i < leagues.length - 1; i++) {
+            int max = i;
+            for (int j = i + 1; j < leagues.length; j++) {
+                if (leagues[j].getTotalActiveGoals() < leagues[max].getTotalActiveGoals()) {
+                    max = j;
+                }
+            }
+            League aux = leagues[i];
+            leagues[i] = leagues[max];
+            leagues[max] = aux;
+
+        }
+        return leagues;
     }
 
     /**
@@ -46,9 +45,23 @@ public class LeagueController {
      * @param totalActiveGoals Total de goles activos a buscar
      * @return La liga encontrada, o null si no existe
      */
-    public League binarySearchByTotalActiveGoals(League[] leagues, int totalActiveGoals) {
-        // TODO: Implementar
-        throw new UnsupportedOperationException("Metodo binarySearchByTotalActiveGoals no implementado");
+    public int binarySearchByTotalActiveGoals(League[] league, int totalActiveGoals) {
+
+        int inicio = 0;
+        int fin = league.length - 1;
+        while (inicio <= fin) {
+            int medio = (inicio + fin) / 2;
+            if (medio == totalActiveGoals) {
+                return medio;
+            }
+            if (medio < totalActiveGoals) {
+                fin = medio - 1;
+            } else {
+                inicio = medio + 1;
+            }
+        }
+        return -1;
+
     }
 
     /**
